@@ -1,11 +1,10 @@
-/* style.css */
-
 /* Apply the video as the background */
 body {
   margin: 0;
   padding: 0;
   overflow: auto; /* Ensure the page is scrollable */
   background-attachment: fixed; /* Keep the background fixed while scrolling */
+  font-family: 'Calibri', sans-serif; /* Set Calibri as the default font */
 }
 
 /* Apply the video as the background */
@@ -24,30 +23,18 @@ body {
   position: relative; /* Change to relative positioning */
   margin: 20px auto; /* Adjust margin for centering */
   background-color: grey;
-  padding: 60px; /* Increased padding */
+  padding: 40px; /* Increased padding */
   border-radius: 30px; /* Increased border-radius */
   text-align: right;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
   opacity: 0.7; /* Adjusted opacity */
-  animation: revealAnimation 1s forwards; /* Use animation for smooth reveal */
-}
-
-/* Keyframes for the reveal animation */
-@keyframes revealAnimation {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  animation: revealAnimation 1.25s forwards; /* Use animation for smooth reveal */
 }
 
 /* Styles for the top right image */
 .top-left-image {
   position: absolute;
-  top: 20px;
+  top: 40px;
   left: 20px;
 }
 
@@ -116,6 +103,7 @@ body {
 .tile:nth-child(odd) {
   background-color: grey;
 }
+
 /* Add these styles for the projects section */
 .projects-section {
   display: grid;
@@ -124,8 +112,12 @@ body {
   padding: 20px;
   margin-top: 20px;
 }
-.projects-section h2 {
+
+.projects-section h1 {
   color: white; /* Set the color of the header to white */
+  font-family: 'Calibri', sans-serif; /* Set Calibri as the font for the header */
+  font-size: xx-large;
+  font-weight: bold;
 }
 
 .project {
