@@ -1,11 +1,31 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdullah's Online Space</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Animated Element with Video Background</title>
 </head>
 <body>
-  <div>Abdullah</div>  
+
+<video id="video-background" autoplay muted loop>
+  <source src="images/network_-_12716 (1080p).mp4" type="video/mp4">
+</video>
+
+<!-- Apply the "animated-element" class to an HTML element -->
+<div class="animated-element"></div>
+
+<!-- Centered white rectangle for name, job, bio, and image -->
+<div class="centered-rectangle">
+    <div class="top-right-image">
+      <img src="your-image.jpg" alt="Your Image">
+    </div>
+    <h1>Abdullah Shahzad</h1>
+    <h2>SWE</h2>
+    <p>I'm a junior at Colby College</p>
+  </div>
+
 </body>
 </html>

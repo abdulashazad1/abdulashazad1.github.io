@@ -1,7 +1,79 @@
+/* style.css */
+
+/* Apply the video as the background */
 body {
-    background-color: #f8f8f8; /* Set your desired background color */
-    background-image: url('images/network_-_12716\ \(1080p\).mp4'); /* Set the path to your background image */
-    background-size: cover; /* Ensure the background image covers the entire viewport */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Ensure the video covers the entire viewport */
+  }
+  
+  /* Define the keyframe animation */
+  @keyframes rotateAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Apply the video as the background */
+  #video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Place the video behind other elements */
+  }
+  
+  /* You can remove or customize the styles for .animated-element */
+  .animated-element {
+    /* Remove or adjust the styles as needed */
+  }
+  
+/* Centered white rectangle styles */
+.centered-rectangle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  /* Styles for the top right image */
+  .top-right-image {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .top-right-image img {
+    width: 80px; /* Adjust the width as needed */
+    height: auto;
+    border-radius: 50%; /* Create a circular image */
+  }
+  
+  /* Styles for the name, job, and bio inside the rectangle */
+  .centered-rectangle h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #0366d6; /* GitHub profile name color */
+  }
+  
+  .centered-rectangle h2 {
+    margin: 5px 0;
+    font-size: 1.8em;
+    color: #586069; /* GitHub profile job color */
+  }
+  
+  .centered-rectangle p {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #24292e; /* GitHub profile bio color */
   }
