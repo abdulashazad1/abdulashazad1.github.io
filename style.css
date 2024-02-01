@@ -76,6 +76,13 @@ body {
   color: #24292e; /* GitHub profile bio color */
 }
 
+/* Use media query to hide image in mobile mode */
+@media only screen and (max-width: 768px) {
+  .top-left-image {
+    display: none;
+  }
+}
+
 /* Styles for the grid layout of tiles below the centered rectangle */
 .tiles-container {
   display: grid;
@@ -102,11 +109,6 @@ body {
   height: auto;
   border-radius: 50%;
   margin-right: 10px; /* Add margin to separate image and text */
-}
-
-.tile p {
-  color: #333;
-  font-size: 1.2em;
 }
 
 /* Additional styles to ensure tiles appear on the page */
