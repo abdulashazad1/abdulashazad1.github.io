@@ -1,0 +1,7 @@
+body {
+    background-color: #f8f8f8; /* Set your desired background color */
+    background-image: url('images/network_-_12716\ \(1080p\).mp4'); /* Set the path to your background image */
+    background-size: cover; /* Ensure the background image covers the entire viewport */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+  }
