@@ -55,26 +55,26 @@ body {
   }
   
   .top-left-image img {
-    width: 150px; /* Adjust the width as needed */
+    width: 180px; /* Adjust the width as needed */
     height: auto;
     border-radius: 50%; /* Create a circular image */
   }
   
   /* Styles for the name, job, and bio inside the rectangle */
-  .centered-rectangle h1 {
+  .centered-rectangle h3 {
     margin: 0;
-    font-size: 3em; /* Increased font size */
-    color: #0366d6; /* GitHub profile name color */
+    font-size: 2em; /* Increased font size */
+    color: black; /* GitHub profile name color */
   }
   
-  .centered-rectangle h2 {
-    margin: 5px 0;
-    font-size: 1.8em;
-    color: #586069; /* GitHub profile job color */
+  .centered-rectangle h4 {
+    margin: 5px 20;
+    font-size: 1.5em;
+    color: black; /* GitHub profile job color */
   }
   
   .centered-rectangle p {
-    margin: 10px 0;
-    font-size: 1.2em;
+    margin: 12px 15;
+    font-size: 1.3em;
     color: #24292e; /* GitHub profile bio color */
   }
