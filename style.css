@@ -2,79 +2,114 @@
 
 /* Apply the video as the background */
 body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Ensure the video covers the entire viewport */
-    background-attachment: fixed; /* Keep the background fixed while scrolling */
+  margin: 0;
+  padding: 0;
+  overflow: auto; /* Ensure the page is scrollable */
+  background-attachment: fixed; /* Keep the background fixed while scrolling */
+}
+
+/* Apply the video as the background */
+#video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Place the video behind other elements */
+}
+
+/* Centered white rectangle styles */
+.centered-rectangle {
+  position: relative; /* Change to relative positioning */
+  margin: 20px auto; /* Adjust margin for centering */
+  background-color: grey;
+  padding: 60px; /* Increased padding */
+  border-radius: 30px; /* Increased border-radius */
+  text-align: right;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  opacity: 0.7; /* Adjusted opacity */
+  animation: revealAnimation 1s forwards; /* Use animation for smooth reveal */
+}
+
+/* Keyframes for the reveal animation */
+@keyframes revealAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
   }
-  
-  /* Define the keyframe animation */
-  @keyframes rotateAnimation {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  /* Apply the video as the background */
-  #video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1; /* Place the video behind other elements */
-  }
-  
-  /* You can remove or customize the styles for .animated-element */
-  .animated-element {
-    /* Remove or adjust the styles as needed */
-  }
-  
-  /* Centered white rectangle styles */
-  .centered-rectangle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: grey;
-    padding: 60px; /* Increased padding */
-    border-radius: 30px; /* Increased border-radius */
-    text-align: right;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  }
-  
-  /* Styles for the top right image */
-  .top-left-image {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-  }
-  
-  .top-left-image img {
-    width: 180px; /* Adjust the width as needed */
-    height: auto;
-    border-radius: 50%; /* Create a circular image */
-  }
-  
-  /* Styles for the name, job, and bio inside the rectangle */
-  .centered-rectangle h3 {
-    margin: 0;
-    font-size: 2em; /* Increased font size */
-    color: black; /* GitHub profile name color */
-  }
-  
-  .centered-rectangle h4 {
-    margin: 5px 20;
-    font-size: 1.5em;
-    color: black; /* GitHub profile job color */
-  }
-  
-  .centered-rectangle p {
-    margin: 12px 15;
-    font-size: 1.3em;
-    color: #24292e; /* GitHub profile bio color */
-  }
+}
+
+/* Styles for the top right image */
+.top-left-image {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.top-left-image img {
+  width: 180px; /* Adjust the width as needed */
+  height: auto;
+  border-radius: 50%; /* Create a circular image */
+}
+
+/* Styles for the name, job, and bio inside the rectangle */
+.centered-rectangle h3 {
+  margin: 0;
+  font-size: 2em; /* Increased font size */
+  color: black; /* GitHub profile name color */
+}
+
+.centered-rectangle h4 {
+  margin: 5px 20;
+  font-size: 1.5em;
+  color: black; /* GitHub profile job color */
+}
+
+.centered-rectangle p {
+  margin: 12px 15;
+  font-size: 1.3em;
+  color: #24292e; /* GitHub profile bio color */
+}
+
+/* Styles for the grid layout of tiles below the centered rectangle */
+.tiles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.tile {
+  background-color: grey;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  opacity: 0.7; /* Adjusted opacity */
+}
+
+.tile img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+  margin-right: 10px; /* Add margin to separate image and text */
+}
+
+.tile p {
+  color: #333;
+  font-size: 1.2em;
+}
+
+/* Additional styles to ensure tiles appear on the page */
+.tile:nth-child(odd) {
+  background-color: grey;
+}

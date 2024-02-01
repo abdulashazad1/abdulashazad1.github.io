@@ -9,23 +9,39 @@
   <title>Animated Element with Video Background</title>
 </head>
 <body>
+  <video id="video-background" autoplay muted loop>
+    <source src="images/network_-_12716 (1080p).mp4" type="video/mp4">
+  </video>
 
-<video id="video-background" autoplay muted loop>
-  <source src="images/network_-_12716 (1080p).mp4" type="video/mp4">
-</video>
+  <!-- Apply the "animated-element" class to an HTML element -->
+  <div class="animated-element"></div>
 
-<!-- Apply the "animated-element" class to an HTML element -->
-<div class="animated-element"></div>
-
-<!-- Centered white rectangle for name, job, bio, and image -->
-<div class="centered-rectangle">
+  <!-- Centered white rectangle for name, job, bio, and image -->
+  <div class="centered-rectangle">
     <div class="top-left-image">
       <img src="images/profile.jpeg" alt="Your Image">
     </div>
     <h3>Abdullah Shahzad</h3>
     <h4>SWE @ HappyTenant</h4>
-    <p>I'm a junior at Colby College in Waterville, ME. I am currently working as a Software Engineering intern at HappyTenant</p>
+    <A href="Abdullah Shahzad Resume.pdf">Download my CV</A>
+    <p>I'm a junior at Colby College in Waterville, ME. Originally, I come from Lahore, Pakistan. I am currently working as a Software Engineering intern at HappyTenant and am interested as working as a Software Engineer for a career path</p>
   </div>
 
+  <!-- Grid of tiles -->
+  <div class="tiles-container">
+    <div class="tile">
+      <img src="images/SICAS.jpeg" alt="Tile 1">
+      <p>SICAS</p>
+    </div>
+    <div class="tile">
+      <img src="images/colby.svg" alt="Tile 2">
+      <p>Colby College</p>
+    </div>
+    <div class="tile">
+      <img src="images/HT.png" alt="Tile 3">
+      <p>Happy Tenant</p>
+    </div>
+    <!-- Add more tiles as needed -->
+  </div>
 </body>
 </html>
