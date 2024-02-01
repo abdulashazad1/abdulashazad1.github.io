@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden; /* Ensure the video covers the entire viewport */
+    background-attachment: fixed; /* Keep the background fixed while scrolling */
   }
   
   /* Define the keyframe animation */
@@ -33,28 +34,28 @@ body {
     /* Remove or adjust the styles as needed */
   }
   
-/* Centered white rectangle styles */
-.centered-rectangle {
+  /* Centered white rectangle styles */
+  .centered-rectangle {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    text-align: center;
+    background-color: grey;
+    padding: 60px; /* Increased padding */
+    border-radius: 30px; /* Increased border-radius */
+    text-align: right;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
   }
   
   /* Styles for the top right image */
-  .top-right-image {
+  .top-left-image {
     position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px;
   }
   
-  .top-right-image img {
-    width: 80px; /* Adjust the width as needed */
+  .top-left-image img {
+    width: 150px; /* Adjust the width as needed */
     height: auto;
     border-radius: 50%; /* Create a circular image */
   }
@@ -62,7 +63,7 @@ body {
   /* Styles for the name, job, and bio inside the rectangle */
   .centered-rectangle h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: 3em; /* Increased font size */
     color: #0366d6; /* GitHub profile name color */
   }
   
