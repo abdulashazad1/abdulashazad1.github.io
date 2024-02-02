@@ -182,24 +182,36 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex; /* Display skills horizontally */
 }
 
 .skills-section li {
-  background-color: grey;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
   opacity: 0.7;
   animation: revealAnimation 1s forwards;
   transition: opacity 0.5s ease;
 }
 
+/* Styles for skill bars */
+.skill-bar {
+  width: 400px;
+  height: 10px;
+  background-color: grey;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.skill-level {
+  height: 100%;
+  width: 0;
+  background-color: black;
+  border-radius: 5px;
+  transition: width 1s ease; /* Added transition for skill bar animation */
+}
+
 /* Additional styles for the contacts section */
 .contacts-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  display: flex;
+  justify-content: space-between; /* Align contacts in the center */
   gap: 20px;
   padding: 20px;
   margin-top: 20px;
@@ -211,5 +223,24 @@ body {
   font-size: xx-large;
   font-weight: bold;
   opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.contacts-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contacts-section li {
+  background-color: grey;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  opacity: 0.7;
+  animation: revealAnimation 1s forwards;
   transition: opacity 0.5s ease;
 }
