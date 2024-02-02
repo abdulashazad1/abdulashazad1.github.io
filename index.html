@@ -9,8 +9,8 @@
   <title>Abdullah's Online Space</title>
 </head>
 <body>
-  <video id="video-background" autoplay muted loop>
-    <source src="images/network_-_12716 (1080p).mp4" type="video/mp4">
+  <video id="background" autoplay muted loop>
+    <source src="images/background.png" type="image/png">
   </video>
 
   <!-- Apply the "animated-element" class to an HTML element -->
@@ -24,10 +24,12 @@
         <img src="images/profile.jpeg" alt="Your Image">
       </a>
     </div>
-    <h3>Abdullah Shahzad</h3>
-    <h4>Software Engineer @ HappyTenant</h4>
-    <a href="Abdullah Shahzad Resume.pdf" target="_blank">Download my CV</a>
-    <p>I'm a junior at Colby College in Waterville, ME. Originally, I come from Lahore, Pakistan. I am currently working as a Software Engineering intern at HappyTenant and am interested in working as a Software Engineer for a career path</p>
+    <div class="name-bio">
+      <h3>Abdullah Shahzad</h3>
+      <h4>Software Engineer @ HappyTenant</h4>
+      <a href="Abdullah Shahzad Resume.pdf" target="_blank">Download my CV</a>
+      <p>I'm a junior at Colby College in Waterville, ME. Originally, I come from Lahore, Pakistan. I am currently working as a Software Engineering intern at HappyTenant and am interested in working as a Software Engineer for a career path</p>
+    </div>
   </div>
 
   <!-- Grid of tiles -->
@@ -36,22 +38,22 @@
       <!-- Wrap the image in an anchor tag -->
       <a href="https://www.sicas.edu.pk/">
         <img src="images/SICAS.jpeg" alt="Tile 1">
+        <div>SICAS</div>
       </a>
-      <p>SICAS</p>
     </div>
     <div class="tile">
       <!-- Wrap the image in an anchor tag -->
       <a href="https://www.colby.edu/">
         <img src="images/colby.svg" alt="Tile 2">
+        <div>Colby College</div>
       </a>
-      <p>Colby College</p>
     </div>
     <div class="tile">
       <!-- Wrap the image in an anchor tag -->
       <a href="https://happytenant.io/">
         <img src="images/HT.png" alt="Tile 3">
+        <div>Happy Tenant</div>
       </a>
-      <p>Happy Tenant</p>
     </div>
     <!-- Add more tiles as needed -->
   </div>
@@ -81,6 +83,26 @@
       <p>Project 3 Description</p>
     </div>
     <!-- Add more projects as needed -->
+  </div>
+
+  <!-- Section for skills -->
+  <div class="skills-section">
+    <h1>Skills Section</h1>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>React</li>
+      <li>Node.js</li>
+    </ul>
+  </div>
+
+  <!-- Section for contacts -->
+  <div class="contacts-section">
+    <h1>Contact Section</h1>
+    <p>Email: abdullah@example.com</p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/abdullah-shahzad-025154228/">Abdullah Shahzad</a></p>
+    <p>GitHub: <a href="https://github.com/abdullahshahzad">abdullahshahzad</a></p>
   </div>
 </body>
 </html>

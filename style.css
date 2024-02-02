@@ -1,66 +1,77 @@
-/* Apply the video as the background */
+/* Apply the background image */
 body {
   margin: 0;
   padding: 0;
-  overflow: auto; /* Ensure the page is scrollable */
-  background-attachment: fixed; /* Keep the background fixed while scrolling */
-  font-family: 'Calibri', sans-serif; /* Set Calibri as the default font */
+  overflow: auto;
+  background-attachment: fixed;
+  font-family: 'Calibri', sans-serif;
 }
 
-/* Apply the video as the background */
-#video-background {
+#background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  z-index: -1; /* Place the video behind other elements */
+  background-image: url('images/background.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+/* Apply the "animated-element" class to an HTML element */
+.animated-element {
+  /* Add your styles for the animated element */
 }
 
 /* Centered white rectangle styles */
 .centered-rectangle {
-  position: relative; /* Change to relative positioning */
-  margin: 20px auto; /* Adjust margin for centering */
+  position: relative;
+  margin: 20px auto;
   background-color: grey;
-  padding: 40px; /* Increased padding */
-  border-radius: 30px; /* Increased border-radius */
+  padding: 40px;
+  border-radius: 30px;
   text-align: right;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  opacity: 0.7; /* Adjusted opacity */
-  animation: revealAnimation 1.25s forwards; /* Use animation for smooth reveal */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  opacity: 0.7;
+  animation: revealAnimation 1.25s forwards;
+  width: 70%; /* Adjusted width to 70% of the viewport width */
 }
 
 /* Styles for the top right image */
 .top-left-image {
   position: absolute;
-  top: 40px;
-  left: 20px;
+  top: 20px;
+  right: 20px; /* Align image to the top right */
 }
 
 .top-left-image img {
-  width: 180px; /* Adjust the width as needed */
+  width: 180px;
   height: auto;
-  border-radius: 50%; /* Create a circular image */
+  border-radius: 50%;
 }
 
 /* Styles for the name, job, and bio inside the rectangle */
+.name-bio {
+  text-align: left; /* Align text to the left */
+}
+
 .centered-rectangle h3 {
-  margin: 0;
-  font-size: 2em; /* Increased font size */
-  color: black; /* GitHub profile name color */
+  margin: 10px 0;
+  font-size: 2em;
+  color: black;
 }
 
 .centered-rectangle h4 {
-  margin: 5px 20;
+  margin: 5px 0;
   font-size: 1.5em;
-  color: black; /* GitHub profile job color */
+  color: black;
 }
 
 .centered-rectangle p {
-  margin: 12px 15;
+  margin: 12px 0;
   font-size: 1.3em;
-  color: #24292e; /* GitHub profile bio color */
+  color: #24292e;
 }
 
 /* Use media query to hide image in mobile mode */
@@ -72,31 +83,44 @@ body {
 
 /* Styles for the grid layout of tiles below the centered rectangle */
 .tiles-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  justify-content: center; /* Align tiles in the center */
   gap: 20px;
-  padding: 20px;
-  margin-top: 20px;
 }
 
+/* Styles for each tile */
 .tile {
+  position: relative;
   background-color: grey;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  opacity: 0.7; /* Adjusted opacity */
-  animation: revealAnimation 1s forwards; /* Use the same animation for tiles */
+  opacity: 0.7;
+  animation: revealAnimation 1s forwards;
+  transition: opacity 0.5s ease;
 }
 
 .tile img {
-  max-width: 100%;
+  max-width: 50%;
   height: auto;
   border-radius: 50%;
-  margin-right: 10px; /* Add margin to separate image and text */
+  margin-bottom: 10px;
+  transition: transform 0.5s ease;
+}
+
+/* Text box in front of the logo */
+.logo-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 /* Additional styles to ensure tiles appear on the page */
@@ -114,14 +138,16 @@ body {
 }
 
 .projects-section h1 {
-  color: white; /* Set the color of the header to white */
-  font-family: 'Calibri', sans-serif; /* Set Calibri as the font for the header */
+  color:black;
+  font-family: 'Calibri', sans-serif;
   font-size: xx-large;
   font-weight: bold;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
 .project {
-  position: relative; /* Add relative positioning */
+  position: relative;
   background-color: grey;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -129,25 +155,61 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0.7; /* Adjusted opacity */
-  animation: revealAnimation 1s forwards; /* Use the same animation for projects */
+  opacity: 0.7;
+  animation: revealAnimation 1s forwards;
+  transition: opacity 0.5s ease;
 }
 
-.project img {
-  position: absolute; /* Add absolute positioning for the image */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px; /* Ensure the same border-radius as the parent */
+/* Additional styles for the skills section */
+.skills-section {
+  display: flex; /* Display skills horizontally */
+  justify-content: space-between; /* Space between skills */
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
-.project-content {
-  z-index: 1; /* Ensure text is above the image */
+.skills-section h1 {
+  color: black;
+  font-family: 'Calibri', sans-serif;
+  font-size: xx-large;
+  font-weight: bold;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
-/* Additional styles to ensure projects appear on the page */
-.project:nth-child(odd) {
+.skills-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Display skills horizontally */
+}
+
+.skills-section li {
   background-color: grey;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  opacity: 0.7;
+  animation: revealAnimation 1s forwards;
+  transition: opacity 0.5s ease;
+}
+
+/* Additional styles for the contacts section */
+.contacts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.contacts-section h1 {
+  color: black;
+  font-family: 'Calibri', sans-serif;
+  font-size: xx-large;
+  font-weight: bold;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
