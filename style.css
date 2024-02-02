@@ -46,7 +46,7 @@ body {
 }
 
 .top-left-image img {
-  width: 180px;
+  width: 150px;
   height: auto;
   border-radius: 50%;
 }
@@ -131,10 +131,10 @@ body {
 /* Add these styles for the projects section */
 .projects-section {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .projects-section h1 {
@@ -149,7 +149,7 @@ body {
 .project {
   position: relative;
   background-color: grey;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
@@ -212,8 +212,8 @@ body {
 .contacts-section {
   display: flex;
   justify-content: space-between; /* Align contacts in the center */
-  gap: 20px;
-  padding: 20px;
+  gap: 5px;
+  padding: 10px;
   margin-top: 20px;
 }
 
@@ -236,11 +236,11 @@ body {
 
 .contacts-section li {
   background-color: grey;
-  padding: 50px;
+  padding: 1000px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   opacity: 0.7;
-  animation: revealAnimation 1s forwards;
+  animation: revealAnimation 1s backwards;
   transition: opacity 0.5s ease;
 }
