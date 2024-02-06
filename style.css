@@ -146,6 +146,15 @@ body {
   transition: opacity 0.5s ease;
 }
 
+.project img {
+  max-width: 200px; /* Adjust the value as needed */
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  transition: transform 0.5s ease;
+}
+
 .project {
   position: relative;
   background-color: grey;
@@ -209,15 +218,17 @@ body {
 }
 
 /* Additional styles for the contacts section */
+
 .contacts-section {
   display: flex;
   justify-content: space-between; /* Align contacts in the center */
   gap: 5px;
-  padding: 10px;
+  padding: 30px;
   margin-top: 20px;
 }
 
-.contacts-section h1 {
+contacts-section h1 {
+  margin-top: 0px; /* Raise the heading by 20 pixels */
   color: black;
   font-family: 'Calibri', sans-serif;
   font-size: xx-large;
@@ -228,19 +239,20 @@ body {
 
 .contacts-section ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: 40;
+  margin: 60;
   display: flex;
   flex-wrap: wrap;
 }
 
 .contacts-section li {
   background-color: grey;
-  padding: 1000px;
-  border-radius: 5px;
+  padding: 1050px;
+  border-radius: 50px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   opacity: 0.7;
   animation: revealAnimation 1s backwards;
   transition: opacity 0.5s ease;
+  vertical-align: bottom;
 }
