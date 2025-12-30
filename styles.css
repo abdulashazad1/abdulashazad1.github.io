@@ -315,6 +315,19 @@ a{ color: inherit; text-decoration: none; }
   height: 14px;
 }
 
+/* Only ONE dot per group gets filled: the primary dot when active */
+.rail-group .dot.is-active{
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 6px rgba(255,76,91,.10), 0 18px 30px rgba(0,0,0,.35);
+}
+
+/* Optional: slightly highlight the active group's line */
+.rail-group.is-active::before{
+  background: rgba(255,76,91,.35);
+}
+
 /* Spacing like the inspiration (big empty gaps) */
 .hero{ min-height: 520px; }
 

@@ -16,27 +16,26 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Decorative right-side line (fixed) -->
-  <div class="rail" aria-hidden="true">
-    <div class="rail-group rail-group--top">
-      <span class="dot dot--filled"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-
-    <div class="rail-group rail-group--mid">
-      <span class="dot"></span>
-      <span class="dot dot--filled dot--big"></span>
-      <span class="dot"></span>
-    </div>
-
-    <div class="rail-group rail-group--bot">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot dot--filled"></span>
-    </div>
+<!-- Decorative right-side line (fixed) -->
+<div class="rail" aria-hidden="true">
+  <div class="rail-group rail-group--top" data-target="#home">
+    <button class="dot" type="button" aria-label="Go to Home"></button>
+    <button class="dot" type="button" aria-label="Go to Home" data-primary="true"></button>
+    <button class="dot" type="button" aria-label="Go to Home"></button>
   </div>
 
+  <div class="rail-group rail-group--mid" data-target="#skills">
+    <button class="dot" type="button" aria-label="Go to Skills"></button>
+    <button class="dot dot--big" type="button" aria-label="Go to Skills" data-primary="true"></button>
+    <button class="dot" type="button" aria-label="Go to Skills"></button>
+  </div>
+
+  <div class="rail-group rail-group--bot" data-target="#contact">
+    <button class="dot" type="button" aria-label="Go to Contact"></button>
+    <button class="dot" type="button" aria-label="Go to Contact"></button>
+    <button class="dot" type="button" aria-label="Go to Contact" data-primary="true"></button>
+  </div>
+</div>
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#">
@@ -215,5 +214,87 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
+  <script>
+  // Footer year (optional)
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  const groups = Array.from(document.querySelectorAll(".rail-group[data-target]"));
+
+  // Build a model: group -> section -> dots
+  const model = groups.map(g => {
+    const selector = g.getAttribute("data-target");
+    const section = document.querySelector(selector);
+    const dots = Array.from(g.querySelectorAll(".dot"));
+    const primary = g.querySelector('.dot[data-primary="true"]') || dots[0];
+    return { group: g, selector, section, dots, primary };
+  }).filter(x => x.section);
+
+  // Click any dot in a group to scroll to that group's section
+  model.forEach(item => {
+    item.dots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        item.section.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  });
+
+  function clearActive(){
+    model.forEach(item => {
+      item.group.classList.remove("is-active");
+      item.dots.forEach(d => d.classList.remove("is-active"));
+    });
+  }
+
+  function setActive(index){
+    clearActive();
+    const item = model[index];
+    if (!item) return;
+    item.group.classList.add("is-active");
+    item.primary.classList.add("is-active"); // ONLY ONE DOT FILLED
+  }
+
+  // Determine current section by scroll position (more robust than IntersectionObserver)
+  function computeActiveIndex(){
+    const scrollY = window.scrollY || window.pageYOffset;
+    const vh = window.innerHeight || 0;
+    const mid = scrollY + vh * 0.45;
+
+    // Hard guarantee bottom activation when near page end
+    const docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+    if (scrollY + vh >= docHeight - 2) return model.length - 1;
+
+    // Find the section whose top is <= mid and next top is > mid
+    for (let i = model.length - 1; i >= 0; i--) {
+      const top = model[i].section.offsetTop;
+      if (mid >= top) return i;
+    }
+    return 0;
+  }
+
+  // Throttle with rAF for smoothness
+  let ticking = false;
+  function onScrollOrResize(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const idx = computeActiveIndex();
+      setActive(idx);
+      ticking = false;
+    });
+  }
+
+  window.addEventListener("scroll", onScrollOrResize, { passive: true });
+  window.addEventListener("resize", onScrollOrResize);
+
+  // Initial sync (covers refresh mid-page)
+  window.addEventListener("load", onScrollOrResize);
+  onScrollOrResize();
+</script>
+
 </body>
 </html>
