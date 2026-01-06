@@ -43,9 +43,9 @@ a{ color:inherit; text-decoration:none; }
   pointer-events:none;
   z-index: -1;
 }
-.glow--one{ top:-180px; right:-160px; background: rgba(58,160,255,.9); }
-.glow--two{ top:280px; left:-220px; background: rgba(255,76,91,.85); }
-.glow--three{ bottom:-240px; right:80px; background: rgba(58,160,255,.7); opacity:.18; }
+.glow--one{ top:-180px; right:-160px; background: rgba(14, 2, 8, 0.023); }
+.glow--two{ top:280px; left:-220px; background: rgba(20, 255, 239, 0.85); }
+.glow--three{ bottom:-240px; right:80px; background: rgba(58, 255, 124, 0.7); opacity:.18; }
 
 /* Header */
 .header{
