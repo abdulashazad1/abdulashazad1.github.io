@@ -4,6 +4,8 @@
   --panel: rgba(255,255,255,.035);
   --panel2: rgba(255,255,255,.02);
   --stroke: rgba(155,120,255,.18);
+  --blue: rgb(77, 163, 255);
+  --blueGlow: rgba(77,163,255,.45);
 
   /* Text */
   --text: rgba(245,240,255,.95);
@@ -69,14 +71,24 @@ a{ color:inherit; text-decoration:none; }
 .glow--three{ bottom:-240px; right:100px; opacity:.18; }
 
 /* Header */
+/* Sticky top navigation */
 .header{
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 10;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  background: rgba(7,6,10,.75);
   backdrop-filter: blur(12px);
-  background: rgba(35,36,55,.55);
-  border-bottom: 1px solid rgba(255,255,255,.05);
+  border-bottom: 1px solid rgba(255,255,255,.06);
 }
+
+/* Push content down so it doesn't hide under nav */
+main{
+  padding-top: 88px; /* adjust to header height */
+}
+
 .header__inner{
   display:flex;
   align-items:center;
@@ -102,6 +114,19 @@ a{ color:inherit; text-decoration:none; }
 }
 .brand__name{ font-size: 14px; color: rgba(233,236,255,.92); }
 
+/* Navigation active / focus / click — BLUE (not red) */
+.nav a:active,
+.nav a:focus,
+.nav a.active,
+.nav a[aria-current="page"]{
+  color: var(--blue);
+  text-shadow:
+    0 0 10px var(--blueGlow),
+    0 0 24px rgba(77,163,255,.25);
+  outline: none;
+}
+
+
 .nav{
   display:flex;
   align-items:center;
@@ -124,6 +149,29 @@ a{ color:inherit; text-decoration:none; }
   background: var(--mix);
   border-radius: 999px;
 }
+
+.nav a.is-active{
+  color: var(--blue);
+  text-shadow:
+    0 0 10px var(--blueGlow),
+    0 0 24px rgba(77,163,255,.25);
+}
+
+/* Remove default tap highlight */
+a{
+  -webkit-tap-highlight-color: rgba(77,163,255,.25);
+}
+
+:target{
+  outline: none;
+  scroll-margin-top: 120px; /* keeps section from hiding under header */
+}
+
+.section:target .section__title{
+  color: var(--blue);
+  text-shadow: 0 0 18px rgba(77,163,255,.25);
+}
+
 
 .header__actions{ display:flex; align-items:center; gap: 10px; }
 
@@ -342,7 +390,7 @@ a{ color:inherit; text-decoration:none; }
   transition: transform .2s ease, color .2s ease;
 }
 .acc.is-open{
-  background: linear-gradient(90deg, rgba(255,76,91,.16), rgba(58,160,255,.10));
+  background: linear-gradient(90deg, rgb(77, 163, 255), rgba(77,163,255,.45));
 }
 .acc.is-open .acc__chev{
   transform: rotate(-90deg);
@@ -701,8 +749,98 @@ a{ color:inherit; text-decoration:none; }
   transition: width .1s linear;
 }
 
+/* SERVICES — active / selected state (remove red, use blue) */
+#services a:active,
+#services a:focus,
+#services a.active,
+#services a.is-active,
+#services button:active,
+#services button:focus,
+#services button.active,
+#services .active,
+#services .is-active{
+  color: var(--blue) !important;
+  background: rgba(77,163,255,.08) !important;
+  border-color: rgba(77,163,255,.45) !important;
   box-shadow:
-    0 0 12px rgba(0,255,156,.45),
-    0 0 25px rgba(0,255,156,.25);
-  transition: width .1s linear;
+    0 0 14px rgba(77,163,255,.35),
+    0 0 32px rgba(77,163,255,.2);
+  outline: none;
 }
+
+/* Kill red pseudo-elements in Services */
+#services *::before,
+#services *::after{
+  background-color: currentColor;
+}
+
+/* Hover stays purple */
+#services a:hover,
+#services button:hover{
+  color: var(--purple);
+  text-shadow: 0 0 12px rgba(168,139,255,.35);
+}
+
+/* Active stays blue */
+#services a.active,
+#services button.active{
+  color: var(--blue);
+}
+
+/* SERVICES — default active state on page load */
+#services .active,
+#services .is-active,
+#services .current,
+#services [aria-selected="true"],
+#services input:checked + label{
+  color: var(--blue) !important;
+  background: rgba(77,163,255,.08) !important;
+  border-color: rgba(77,163,255,.45) !important;
+  box-shadow:
+    0 0 14px rgba(77,163,255,.35),
+    0 0 32px rgba(77,163,255,.2);
+}
+
+/* Kill legacy red accent */
+#services{
+  --accent: var(--blue);
+  --primary: var(--blue);
+  --highlight: var(--blue);
+}
+
+#services .force-blue{
+  color: var(--blue) !important;
+}
+
+/* Nav link default */
+.nav a{
+  position: relative;
+  color: var(--muted);
+  transition: color .3s ease;
+}
+
+/* Active section */
+.nav a.is-active{
+  color: var(--blue);
+  text-shadow:
+    0 0 10px var(--blueGlow),
+    0 0 22px rgba(77,163,255,.25);
+}
+
+/* Optional underline indicator */
+.nav a.is-active::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:100%;
+  height:2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  box-shadow: 0 0 12px rgba(77,163,255,.45);
+}
+
+section{
+  scroll-margin-top: 120px;
+}
+
+

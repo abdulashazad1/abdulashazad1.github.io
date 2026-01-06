@@ -128,7 +128,7 @@
         </div>
 
         <div class="accordion" role="region" aria-label="Services accordion">
-          <button class="acc is-open" type="button" aria-expanded="true">
+          <button class="acc" type="button" aria-expanded="false">
             <span class="acc__idx">01</span>
             <span class="acc__name">Branding Design</span>
             <span class="acc__chev">›</span>
@@ -579,6 +579,48 @@
 
     progressBar.style.width = progress + "%";
   });
+</script>
+
+<script>
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav a");
+
+  function setActiveSection() {
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+
+    // 1️⃣ TOP OF PAGE → HOME
+    if (scrollY < 100) {
+      navLinks.forEach(link => link.classList.remove("is-active"));
+      document.querySelector('.nav a[href="#home"]')?.classList.add("is-active");
+      return;
+    }
+
+    // 2️⃣ BOTTOM OF PAGE → CONTACT
+    if (scrollY + viewportHeight >= docHeight - 10) {
+      navLinks.forEach(link => link.classList.remove("is-active"));
+      document.querySelector('.nav a[href="#contact"]')?.classList.add("is-active");
+      return;
+    }
+
+    // 3️⃣ NORMAL SECTION DETECTION
+    sections.forEach(section => {
+      const top = section.offsetTop - 140; // header offset
+      const bottom = top + section.offsetHeight;
+      const id = section.getAttribute("id");
+
+      if (scrollY >= top && scrollY < bottom) {
+        navLinks.forEach(link => link.classList.remove("is-active"));
+        document
+          .querySelector(`.nav a[href="#${id}"]`)
+          ?.classList.add("is-active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", setActiveSection);
+  window.addEventListener("load", setActiveSection);
 </script>
 
 
