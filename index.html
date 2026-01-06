@@ -13,6 +13,11 @@
 </head>
 <body>
 
+  <div class="scroll-progress">
+  <div class="scroll-progress__bar"></div>
+</div>
+
+
   <!-- Soft background glows -->
   <div class="glow glow--one" aria-hidden="true"></div>
   <div class="glow glow--two" aria-hidden="true"></div>
@@ -91,20 +96,20 @@
 
             <div class="stats">
               <div class="stat">
-                <div class="stat__num">4+</div>
-                <div class="stat__label">Years of<br>Experience</div>
+              <div class="stat__num" data-target="4">0</div>
+              <div class="stat__label">Years of Experience</div>
               </div>
               <div class="stat">
-                <div class="stat__num">50+</div>
-                <div class="stat__label">Projects<br>Completed</div>
+              <div class="stat__num" data-target="50">0</div>
+              <div class="stat__label">Projects</div>
               </div>
               <div class="stat">
-                <div class="stat__num">1.5K</div>
-                <div class="stat__label">Happy<br>Clients</div>
+              <div class="stat__num" data-target="1500">0</div>
+              <div class="stat__label">Happy Clients</div>
               </div>
               <div class="stat">
-                <div class="stat__num">14</div>
-                <div class="stat__label">Awards<br>Won</div>
+              <div class="stat__num" data-target="14">0</div>
+              <div class="stat__label">Awards Won</div>
               </div>
             </div>
           </div>
@@ -532,5 +537,50 @@
       });
     }
   </script>
+
+  <script>
+  function animateCount(el, duration = 1600) {
+    const target = +el.dataset.target;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease-out for premium feel
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      el.textContent = Math.floor(eased * target);
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        el.textContent = target;
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".stat__num").forEach(num => {
+      animateCount(num);
+    });
+  });
+</script>
+
+<script>
+  const progressBar = document.querySelector(".scroll-progress__bar");
+
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+
+    progressBar.style.width = progress + "%";
+  });
+</script>
+
+
 </body>
 </html>
