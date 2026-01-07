@@ -4,8 +4,8 @@
   --panel: rgba(255,255,255,.035);
   --panel2: rgba(255,255,255,.02);
   --stroke: rgba(155,120,255,.18);
-  --blue: rgb(77, 163, 255);
-  --blueGlow: rgba(77,163,255,.45);
+  --blue: rgb(173, 131, 236);
+  --blueGlow: rgba(135, 31, 254, 0.45);
 
   /* Text */
   --text: rgba(245,240,255,.95);
@@ -13,7 +13,7 @@
   --muted2: rgba(190,170,240,.45);
 
   /* Purple system */
-  --purple: #a88bff;             /* main accent */
+  --purple:  #ded9ff;             /* main accent */
   --purpleSoft: rgba(168,139,255,.18);
   --purpleGlow: rgba(168,139,255,.45);
 
@@ -275,8 +275,8 @@ a{
   aspect-ratio: 4/5;
   border-radius: 26px;
   padding: 10px;
-  background: linear-gradient(135deg, rgba(255,76,91,.22), rgba(58,160,255,.16));
-  border: 1px solid rgba(255,255,255,.06);
+  background: linear-gradient(135deg, rgba(255, 76, 225, 0.22), rgba(183, 52, 244, 0.16));
+  border: 1px solid rgba(195, 83, 235, 0.06);
   box-shadow: var(--shadow);
 }
 .portrait__frame img{
@@ -761,10 +761,10 @@ a{
 #services .is-active{
   color: var(--blue) !important;
   background: rgba(77,163,255,.08) !important;
-  border-color: rgba(77,163,255,.45) !important;
+  border-color: rgba(156, 86, 213, 0.45) !important;
   box-shadow:
-    0 0 14px rgba(77,163,255,.35),
-    0 0 32px rgba(77,163,255,.2);
+    0 0 14px rgba(182, 122, 215, 0.35),
+    0 0 32px rgba(181, 119, 229, 0.2);
   outline: none;
 }
 
@@ -778,7 +778,7 @@ a{
 #services a:hover,
 #services button:hover{
   color: var(--purple);
-  text-shadow: 0 0 12px rgba(168,139,255,.35);
+  text-shadow: 0 0 12px rgba(179, 128, 240, 0.35);
 }
 
 /* Active stays blue */
@@ -795,10 +795,10 @@ a{
 #services input:checked + label{
   color: var(--blue) !important;
   background: rgba(77,163,255,.08) !important;
-  border-color: rgba(77,163,255,.45) !important;
+  border-color: rgba(189, 123, 240, 0.45) !important;
   box-shadow:
-    0 0 14px rgba(77,163,255,.35),
-    0 0 32px rgba(77,163,255,.2);
+    0 0 14px rgba(180, 99, 234, 0.35),
+    0 0 32px rgba(187, 111, 234, 0.2);
 }
 
 /* Kill legacy red accent */
