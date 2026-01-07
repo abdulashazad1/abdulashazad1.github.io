@@ -370,7 +370,7 @@ a{
   background: rgba(255,255,255,.02);
   border: 0;
   border-bottom: 1px solid rgba(255,255,255,.05);
-  color: rgba(233,236,255,.92);
+  color: rgba(208, 209, 217, 0.92);
   cursor:pointer;
 }
 .acc__idx{
