@@ -389,9 +389,7 @@ a{
   transform: rotate(90deg);
   transition: transform .2s ease, color .2s ease;
 }
-.acc.is-open{
-  background: linear-gradient(90deg, rgb(77, 163, 255), rgba(77,163,255,.45));
-}
+
 .acc.is-open .acc__chev{
   transform: rotate(-90deg);
   color: rgba(233,236,255,.85);
