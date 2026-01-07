@@ -118,7 +118,7 @@
     </section>
 
     <!-- SERVICES (Accordion) -->
-    <section class="section" id="services">
+    <section class="section reveal fade-right" id="services">
       <div class="container">
         <div class="section__head">
           <h2 class="section__title">Services</h2>
@@ -176,7 +176,7 @@
     </section>
 
     <!-- WORK -->
-    <section class="section" id="work">
+    <section class="section reveal fade-in" id="work">
       <div class="container">
         <div class="section__head section__head--center">
           <h2 class="section__title">My Recent Works</h2>
@@ -227,7 +227,7 @@
     </section>
 
     <!-- RESUME -->
-    <section class="section" id="resume">
+    <section class="section reveal fade-right" id="resume">
       <div class="container">
         <div class="two-col">
           <div class="panel">
@@ -298,7 +298,7 @@
     </section>
 
     <!-- SKILLS -->
-    <section class="section" id="skills">
+    <section class="section reveal fade-left" id="skills">
       <div class="container">
         <div class="section__head section__head--center">
           <h2 class="section__title">My Skills</h2>
@@ -335,7 +335,7 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="section" id="testimonials">
+    <section class="section reveal fade-right" id="testimonials">
       <div class="container">
         <div class="section__head section__head--center">
           <h2 class="section__title">My Client's Stories</h2>
@@ -384,9 +384,8 @@
         </div>
       </div>
     </section>
-
     <!-- BLOG -->
-    <section class="section" id="blog">
+    <section class="section reveal fade-left" id="blog">
       <div class="container">
         <div class="section__head section__head--center">
           <h2 class="section__title">Recent Blogs</h2>
@@ -428,7 +427,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section class="section section--tight" id="contact">
+    <section class="section section--tight reveal fade-left" id="contact">
       <div class="container">
         <div class="contact-card">
           <div class="contact-card__left">
@@ -481,6 +480,15 @@
       <p>© <span id="year"></span> Abdullah Shahzad. All rights reserved.</p>
     </div>
   </footer>
+  <!-- GSAP core -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+
+<!-- ScrollTrigger plugin -->
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+</script>
 
   <script>
     // Year
@@ -621,6 +629,67 @@
 
   window.addEventListener("scroll", setActiveSection);
   window.addEventListener("load", setActiveSection);
+</script>
+
+<script>
+  gsap.utils.toArray(".reveal").forEach(el => {
+  let fromVars = {
+    opacity: 0,
+    duration: 0.55,
+    ease: "power2.out"
+  };
+
+  if (el.classList.contains("fade-up")) fromVars.y = 50;
+  if (el.classList.contains("fade-left")) fromVars.x = -70;
+  if (el.classList.contains("fade-right")) fromVars.x = 70;
+
+  gsap.fromTo(el,
+    fromVars,
+    {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scrollTrigger: {
+        trigger: el,
+
+        /* 👇 TIGHTER WINDOW */
+        start: "top 30%",
+        end: "top 1%",
+
+        toggleActions: "play reverse play reverse",
+
+        // Debug helper (optional – remove later)
+        // markers: true
+      }
+    }
+  );
+});
+
+</script>
+
+<script>
+  document.querySelectorAll("section").forEach(section => {
+    const items = section.querySelectorAll(".reveal");
+
+    if (items.length > 1) {
+      gsap.fromTo(items,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.12,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            end: "top 30%",
+            toggleActions: "play reverse play reverse"
+          }
+        }
+      );
+    }
+  });
 </script>
 
 
