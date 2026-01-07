@@ -922,15 +922,23 @@
   });
 </script>
 
-// Load recent blog posts into portfolio
+<!-- Add this script section right before the closing </body> tag in your portfolio index.html -->
+<!-- Replace ALL existing blog loading scripts with this SINGLE script -->
 
 <script>
-const BLOG_API_KEY = '$2a$10$DoX7ShR2LAeHPUJHppWCvO8tDzR8ehVe4US0T/DdlE1SbR9hk3pEe'; // Your JSONBin.io Master Key
-const BLOG_BIN_ID = 'YOUR_BIN_ID'; // This will be auto-detected or you can paste it here
+// ============================================
+// BLOG INTEGRATION CONFIG
+// ============================================
+// Replace with your actual JSONBin.io Master Key from blog.html
+const BLOG_API_KEY = '$2a$10$DoX7ShR2LAeHPUJHppWCvO8tDzR8ehVe4US0T/DdlE1SbR9hk3pEe';
+const BLOG_BIN_ID = '695e953743b1c97be91ff23d'; // This will be auto-detected
 
+// ============================================
+// LOAD BLOG POSTS FROM CLOUD STORAGE
+// ============================================
 async function loadBlogPosts() {
   try {
-    // First, try to get the BIN_ID from localStorage (set by blog.html)
+    // Try to get BIN_ID from localStorage (set by blog.html)
     let binId = BLOG_BIN_ID;
     if (binId === 'YOUR_BIN_ID') {
       binId = localStorage.getItem('blog_bin_id');
@@ -942,6 +950,8 @@ async function loadBlogPosts() {
       return;
     }
 
+    console.log('Loading blog posts from BIN ID:', binId);
+
     // Fetch blog posts from JSONBin.io
     const response = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
       headers: {
@@ -950,18 +960,23 @@ async function loadBlogPosts() {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch blog posts');
+      console.error('Failed to fetch blog posts:', response.status);
+      return;
     }
 
     const data = await response.json();
+    console.log('Blog data received:', data);
+
     const posts = (data.record.posts || [])
       .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 6); // Get latest 6 posts
+      .slice(0, 6);
 
     if (posts.length === 0) {
-      console.log('No blog posts yet');
+      console.log('No blog posts found');
       return;
     }
+
+    console.log(`Found ${posts.length} blog posts`);
 
     // Update blog cards with real data
     const blogCards = document.querySelectorAll('.blog-card');
@@ -1006,22 +1021,19 @@ async function loadBlogPosts() {
       }
     });
 
-    console.log(`✓ Loaded ${posts.length} blog posts`);
+    console.log('✓ Successfully loaded and displayed blog posts');
     
   } catch (error) {
     console.error('Error loading blog posts:', error);
-    // Silently fail - keeps placeholder content visible
   }
 }
 
 // Load blog posts when page loads
 window.addEventListener('load', loadBlogPosts);
 
-// Optional: Reload blog posts every 5 minutes to show updates
-// Uncomment the line below if you want auto-refresh
+// Optional: Auto-refresh every 5 minutes
 // setInterval(loadBlogPosts, 5 * 60 * 1000);
 </script>
-
 
 </body>
 </html>
