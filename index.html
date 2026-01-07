@@ -922,6 +922,106 @@
   });
 </script>
 
+// Load recent blog posts into portfolio
+
+<script>
+const BLOG_API_KEY = '$2a$10$DoX7ShR2LAeHPUJHppWCvO8tDzR8ehVe4US0T/DdlE1SbR9hk3pEe'; // Your JSONBin.io Master Key
+const BLOG_BIN_ID = 'YOUR_BIN_ID'; // This will be auto-detected or you can paste it here
+
+async function loadBlogPosts() {
+  try {
+    // First, try to get the BIN_ID from localStorage (set by blog.html)
+    let binId = BLOG_BIN_ID;
+    if (binId === 'YOUR_BIN_ID') {
+      binId = localStorage.getItem('blog_bin_id');
+    }
+
+    // If no BIN_ID found, show placeholder content
+    if (!binId) {
+      console.log('Blog not set up yet. Create your first post in blog.html');
+      return;
+    }
+
+    // Fetch blog posts from JSONBin.io
+    const response = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+      headers: {
+        'X-Master-Key': BLOG_API_KEY
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog posts');
+    }
+
+    const data = await response.json();
+    const posts = (data.record.posts || [])
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 6); // Get latest 6 posts
+
+    if (posts.length === 0) {
+      console.log('No blog posts yet');
+      return;
+    }
+
+    // Update blog cards with real data
+    const blogCards = document.querySelectorAll('.blog-card');
+    
+    posts.forEach((post, index) => {
+      if (blogCards[index]) {
+        const card = blogCards[index];
+        
+        // Calculate read time
+        const wordCount = post.content.trim().split(/\s+/).length;
+        const readTime = Math.ceil(wordCount / 200);
+        
+        // Update thumbnail if provided
+        const thumb = card.querySelector('.blog-card__thumb');
+        if (post.thumbnail && thumb) {
+          thumb.style.backgroundImage = `url('${post.thumbnail}')`;
+        }
+        
+        // Update meta info
+        const meta = card.querySelector('.blog-card__meta');
+        if (meta) {
+          meta.textContent = `${post.category || 'Design'} • ${readTime} min`;
+        }
+        
+        // Update title
+        const title = card.querySelector('.blog-card__title');
+        if (title) {
+          title.textContent = post.title;
+        }
+        
+        // Update description
+        const text = card.querySelector('.blog-card__text');
+        if (text) {
+          text.textContent = post.excerpt || post.content.substring(0, 120) + '...';
+        }
+        
+        // Update link
+        const link = card.querySelector('.blog-card__link');
+        if (link) {
+          link.href = `blog.html#${post.id}`;
+        }
+      }
+    });
+
+    console.log(`✓ Loaded ${posts.length} blog posts`);
+    
+  } catch (error) {
+    console.error('Error loading blog posts:', error);
+    // Silently fail - keeps placeholder content visible
+  }
+}
+
+// Load blog posts when page loads
+window.addEventListener('load', loadBlogPosts);
+
+// Optional: Reload blog posts every 5 minutes to show updates
+// Uncomment the line below if you want auto-refresh
+// setInterval(loadBlogPosts, 5 * 60 * 1000);
+</script>
+
 
 </body>
 </html>

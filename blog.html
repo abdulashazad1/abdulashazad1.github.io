@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Abdullah Shahzad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #07060a;
+      --panel: rgba(255,255,255,.035);
+      --stroke: rgba(155,120,255,.18);
+      --blue: rgb(77, 163, 255);
+      --text: rgba(245,240,255,.95);
+      --muted: rgba(215,200,255,.65);
+      --muted2: rgba(190,170,240,.45);
+      --purple: #a88bff;
+      --mix: linear-gradient(90deg, #b59bff, #8f7bff);
+      --mixSoft: linear-gradient(90deg, rgba(181,155,255,.25), rgba(143,123,255,.15));
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    
+    html, body { 
+      height: 100%; 
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: "Poppins", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(168,139,255,.08), transparent 35%),
+                  radial-gradient(circle at 80% 30%, rgba(143,123,255,.06), transparent 40%),
+                  #07060a;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .header {
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: rgba(7,6,10,.75);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--mixSoft);
+      border: 1px solid rgba(255,255,255,.06);
+      font-weight: 700;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.06);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      background: none;
+      color: inherit;
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,.03);
+      color: rgba(233,236,255,.92);
+    }
+
+    .btn-primary {
+      background: var(--mix);
+      color: #0f1328;
+      font-weight: 700;
+    }
+
+    .btn-danger {
+      background: rgba(255,76,91,.1);
+      border-color: rgba(255,76,91,.2);
+      color: rgba(255,76,91,.9);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .container-narrow {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .page-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 0 0 16px;
+      background: var(--mix);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-align: center;
+    }
+
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .blog-card {
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.05);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(168,139,255,.3);
+    }
+
+    .blog-card-thumb {
+      height: 180px;
+      background: radial-gradient(130px 130px at 25% 40%, rgba(29, 168, 228, 0.32), transparent 60%),
+                  radial-gradient(140px 140px at 70% 35%, rgba(24, 8, 9, 0.3), transparent 60%),
+                  linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.28));
+      background-size: cover;
+      background-position: center;
+    }
+
+    .blog-card-body {
+      padding: 20px;
+    }
+
+    .blog-card-meta {
+      font-size: 11px;
+      color: var(--muted2);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .blog-card-title {
+      margin: 0 0 12px;
+      font-size: 18px;
+      font-weight: 800;
+      color: rgba(233,236,255,.95);
+    }
+
+    .blog-card-text {
+      margin: 0 0 16px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-card-date {
+      font-size: 12px;
+      color: var(--muted2);
+    }
+
+    .post-header {
+      margin-bottom: 32px;
+    }
+
+    .post-meta {
+      font-size: 12px;
+      color: var(--muted2);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .post-title {
+      font-size: 42px;
+      font-weight: 800;
+      margin: 0 0 16px;
+      line-height: 1.2;
+      background: var(--mix);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .post-excerpt {
+      font-size: 18px;
+      color: rgba(215,200,255,.75);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .post-thumbnail {
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 32px;
+      height: 400px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .post-content {
+      font-size: 15px;
+      line-height: 1.8;
+      color: rgba(215,200,255,.85);
+      white-space: pre-wrap;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .admin-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 0;
+      background: var(--mix);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .post-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .post-item {
+      padding: 20px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .post-item-info {
+      flex: 1;
+    }
+
+    .post-item-title {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .post-item-meta {
+      font-size: 12px;
+      color: var(--muted2);
+      display: flex;
+      gap: 12px;
+    }
+
+    .post-item-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(215,200,255,.85);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      color: rgba(233,236,255,.92);
+      font-size: 15px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: rgba(168,139,255,.5);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--muted);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted2);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .status-message {
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-success {
+      background: rgba(46, 213, 115, 0.1);
+      border: 1px solid rgba(46, 213, 115, 0.3);
+      color: rgba(46, 213, 115, 0.95);
+    }
+
+    .status-error {
+      background: rgba(255, 76, 91, 0.1);
+      border: 1px solid rgba(255, 76, 91, 0.3);
+      color: rgba(255, 76, 91, 0.95);
+    }
+
+    .setup-panel {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 32px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: var(--radius);
+    }
+
+    .setup-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0 0 16px;
+      background: var(--mix);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .setup-text {
+      color: var(--muted);
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+
+    .setup-steps {
+      background: rgba(0,0,0,.2);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
+    .setup-steps ol {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .setup-steps li {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .setup-steps a {
+      color: var(--purple);
+      text-decoration: none;
+    }
+
+    .setup-steps a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .post-title {
+        font-size: 32px;
+      }
+      
+      .page-title {
+        font-size: 36px;
+      }
+
+      .post-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand-area">
+        <div class="brand-mark">AS</div>
+        <h1 class="brand-title" id="header-title">Blog</h1>
+      </div>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-ghost">← Portfolio</a>
+        <button id="admin-btn" class="btn btn-primary">Admin</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Setup View -->
+  <div id="setup-view" class="container hidden">
+    <div class="setup-panel">
+      <h2 class="setup-title">Setup Required</h2>
+      <p class="setup-text">
+        To use persistent storage for your blog, you need to set up a free JSONBin.io account and add your API key.
+      </p>
+      
+      <div class="setup-steps">
+        <ol>
+          <li>Go to <a href="https://jsonbin.io/" target="_blank">jsonbin.io</a> and create a free account</li>
+          <li>After signing in, go to your API Keys section</li>
+          <li>Copy your Master Key</li>
+          <li>Open this HTML file in a text editor</li>
+          <li>Find the line: <code>const API_KEY = 'YOUR_API_KEY_HERE';</code></li>
+          <li>Replace <code>YOUR_API_KEY_HERE</code> with your actual API key</li>
+          <li>Save the file and refresh this page</li>
+        </ol>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Or paste your API key here temporarily:</label>
+        <input type="text" id="temp-api-key" class="form-input" placeholder="Paste your JSONBin.io API key">
+      </div>
+
+      <button id="save-temp-key" class="btn btn-primary" style="width: 100%; justify-content: center;">
+        Continue with this key
+      </button>
+    </div>
+  </div>
+
+  <!-- Blog List View -->
+  <div id="list-view" class="container">
+    <h2 class="page-title">Recent Blogs</h2>
+    <p class="page-subtitle">Notes on design systems, performance, and building products.</p>
+    <div id="blog-grid" class="blog-grid">
+      <div class="loading">Loading posts...</div>
+    </div>
+  </div>
+
+  <!-- Single Post View -->
+  <div id="post-view" class="container-narrow hidden">
+    <button id="back-to-list" class="btn btn-ghost" style="margin-bottom: 32px;">
+      ← Back to all posts
+    </button>
+    <article id="post-content"></article>
+  </div>
+
+  <!-- Admin View -->
+  <div id="admin-view" class="container hidden">
+    <div class="admin-header">
+      <h2 class="admin-title">Manage Posts</h2>
+      <button id="new-post-btn" class="btn btn-primary">+ New Post</button>
+    </div>
+    <div id="post-list" class="post-list">
+      <div class="loading">Loading posts...</div>
+    </div>
+  </div>
+
+  <!-- Edit/Create Post View -->
+  <div id="edit-view" class="container-narrow hidden">
+    <button id="back-to-admin" class="btn btn-ghost" style="margin-bottom: 32px;">
+      ← Back to admin
+    </button>
+    <h2 class="admin-title" id="edit-title">Create New Post</h2>
+    
+    <div id="status-container"></div>
+    
+    <div style="margin-top: 32px;">
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input type="text" id="input-title" class="form-input" placeholder="Post title" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <input type="text" id="input-category" class="form-input" placeholder="e.g., Design Systems, Performance, UX">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Excerpt (optional)</label>
+        <textarea id="input-excerpt" class="form-textarea" rows="3" placeholder="A brief summary of your post"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Content</label>
+        <textarea id="input-content" class="form-textarea" rows="15" placeholder="Write your blog post content here..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Thumbnail URL (optional)</label>
+        <input type="text" id="input-thumbnail" class="form-input" placeholder="https://example.com/image.jpg">
+      </div>
+
+      <button id="submit-btn" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px 24px; font-size: 15px; margin-top: 12px;">
+        <span id="submit-text">Publish Post</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ============================================
+    // CONFIGURATION - ADD YOUR API KEY HERE
+    // ============================================
+    const API_KEY = '$2a$10$DoX7ShR2LAeHPUJHppWCvO8tDzR8ehVe4US0T/DdlE1SbR9hk3pEe'; // Replace with your JSONBin.io API key
+    const BIN_ID = 'YOUR_BIN_ID'; // This will be auto-created on first post
+    
+    // ============================================
+    // Storage API using JSONBin.io
+    // ============================================
+    class BlogStorage {
+      constructor(apiKey, binId = null) {
+        this.apiKey = apiKey || sessionStorage.getItem('temp_api_key');
+        this.binId = binId || localStorage.getItem('blog_bin_id');
+        this.baseUrl = 'https://api.jsonbin.io/v3';
+      }
+
+      async createBin(data) {
+        const response = await fetch(`${this.baseUrl}/b`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': this.apiKey,
+            'X-Bin-Name': 'blog-posts'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Failed to create storage');
+        
+        const result = await response.json();
+        this.binId = result.metadata.id;
+        localStorage.setItem('blog_bin_id', this.binId);
+        return result;
+      }
+
+      async read() {
+        if (!this.binId) return { posts: [] };
+
+        const response = await fetch(`${this.baseUrl}/b/${this.binId}/latest`, {
+          headers: {
+            'X-Master-Key': this.apiKey
+          }
+        });
+
+        if (!response.ok) {
+          if (response.status === 404) return { posts: [] };
+          throw new Error('Failed to read storage');
+        }
+
+        const result = await response.json();
+        return result.record;
+      }
+
+      async write(data) {
+        if (!this.binId) {
+          return await this.createBin(data);
+        }
+
+        const response = await fetch(`${this.baseUrl}/b/${this.binId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': this.apiKey
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Failed to save storage');
+        return await response.json();
+      }
+    }
+
+    // ============================================
+    // State management
+    // ============================================
+    let posts = [];
+    let currentPost = null;
+    let editingPost = null;
+    let storage = null;
+
+    // ============================================
+    // View management
+    // ============================================
+    const views = {
+      setup: document.getElementById('setup-view'),
+      list: document.getElementById('list-view'),
+      post: document.getElementById('post-view'),
+      admin: document.getElementById('admin-view'),
+      edit: document.getElementById('edit-view')
+    };
+
+    function showView(viewName) {
+      Object.keys(views).forEach(key => {
+        views[key].classList.add('hidden');
+      });
+      views[viewName].classList.remove('hidden');
+      
+      const headerTitle = document.getElementById('header-title');
+      if (viewName === 'list') headerTitle.textContent = 'Blog';
+      else if (viewName === 'admin') headerTitle.textContent = 'Admin';
+      else if (viewName === 'post') headerTitle.textContent = 'Post';
+      else if (viewName === 'edit') headerTitle.textContent = editingPost?.id ? 'Edit Post' : 'New Post';
+      else if (viewName === 'setup') headerTitle.textContent = 'Setup';
+    }
+
+    function showStatus(message, type = 'success') {
+      const container = document.getElementById('status-container');
+      container.innerHTML = `
+        <div class="status-message status-${type}">
+          ${type === 'success' ? '✓' : '✕'} ${message}
+        </div>
+      `;
+      setTimeout(() => {
+        container.innerHTML = '';
+      }, 5000);
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+    }
+
+    function calculateReadTime(content) {
+      const wordsPerMinute = 200;
+      const wordCount = content.trim().split(/\s+/).length;
+      return Math.ceil(wordCount / wordsPerMinute);
+    }
+
+    // ============================================
+    // Storage functions
+    // ============================================
+    async function loadPosts() {
+      try {
+        const data = await storage.read();
+        posts = data.posts || [];
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderBlogList();
+        renderAdminList();
+      } catch (error) {
+        console.error('Error loading posts:', error);
+        showStatus('Failed to load posts: ' + error.message, 'error');
+      }
+    }
+
+    async function savePost(post) {
+      const submitBtn = document.getElementById('submit-btn');
+      const submitText = document.getElementById('submit-text');
+      
+      try {
+        submitBtn.disabled = true;
+        submitText.textContent = 'Saving...';
+
+        const postToSave = {
+          ...post,
+          id: post.id || `post_${Date.now()}`,
+          date: post.date || new Date().toISOString(),
+          lastModified: new Date().toISOString()
+        };
+
+        const existingIndex = posts.findIndex(p => p.id === postToSave.id);
+        if (existingIndex >= 0) {
+          posts[existingIndex] = postToSave;
+        } else {
+          posts.push(postToSave);
+        }
+
+        await storage.write({ posts });
+        
+        showStatus(editingPost ? 'Post updated successfully!' : 'Post published successfully!', 'success');
+        await loadPosts();
+        
+        setTimeout(() => {
+          editingPost = null;
+          showView('admin');
+        }, 1000);
+        
+        return true;
+      } catch (error) {
+        console.error('Error saving post:', error);
+        showStatus('Error saving post: ' + error.message, 'error');
+        return false;
+      } finally {
+        submitBtn.disabled = false;
+        submitText.textContent = editingPost ? 'Update Post' : 'Publish Post';
+      }
+    }
+
+    async function deletePost(postId) {
+      if (!confirm("Are you sure you want to delete this post?")) return;
+      
+      try {
+        posts = posts.filter(p => p.id !== postId);
+        await storage.write({ posts });
+        showStatus('Post deleted successfully!', 'success');
+        await loadPosts();
+      } catch (error) {
+        console.error('Error deleting post:', error);
+        showStatus('Failed to delete post: ' + error.message, 'error');
+      }
+    }
+
+    // ============================================
+    // Render functions
+    // ============================================
+    function renderBlogList() {
+      const grid = document.getElementById('blog-grid');
+      
+      if (posts.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <p>No blog posts yet. Create your first post in the admin panel!</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = posts.map(post => `
+        <article class="blog-card" data-post-id="${post.id}">
+          <div class="blog-card-thumb" style="${post.thumbnail ? `background-image: url('${post.thumbnail}')` : ''}"></div>
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span>${post.category || 'Design Systems'}</span>
+              <span>•</span>
+              <span>${calculateReadTime(post.content)} min</span>
+            </div>
+            <h3 class="blog-card-title">${post.title}</h3>
+            <p class="blog-card-text">${post.excerpt || post.content.substring(0, 120) + '...'}</p>
+            <div class="blog-card-date">${formatDate(post.date)}</div>
+          </div>
+        </article>
+      `).join('');
+
+      document.querySelectorAll('.blog-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const postId = card.dataset.postId;
+          currentPost = posts.find(p => p.id === postId);
+          renderPost();
+          showView('post');
+          window.location.hash = postId;
+        });
+      });
+    }
+
+    function renderPost() {
+      if (!currentPost) return;
+      
+      const content = document.getElementById('post-content');
+      content.innerHTML = `
+        <div class="post-header">
+          <div class="post-meta">
+            <span>${currentPost.category || 'Design Systems'}</span>
+            <span>•</span>
+            <span>${calculateReadTime(currentPost.content)} min read</span>
+            <span>•</span>
+            <span>${formatDate(currentPost.date)}</span>
+          </div>
+          <h1 class="post-title">${currentPost.title}</h1>
+          ${currentPost.excerpt ? `<p class="post-excerpt">${currentPost.excerpt}</p>` : ''}
+        </div>
+        ${currentPost.thumbnail ? `<div class="post-thumbnail" style="background-image: url('${currentPost.thumbnail}')"></div>` : ''}
+        <div class="post-content">${currentPost.content}</div>
+      `;
+    }
+
+    function renderAdminList() {
+      const list = document.getElementById('post-list');
+      
+      if (posts.length === 0) {
+        list.innerHTML = '<div class="empty-state">No posts yet. Create your first post!</div>';
+        return;
+      }
+
+      list.innerHTML = posts.map(post => `
+        <div class="post-item">
+          <div class="post-item-info">
+            <h3 class="post-item-title">${post.title}</h3>
+            <div class="post-item-meta">
+              <span>${post.category || 'Uncategorized'}</span>
+              <span>•</span>
+              <span>${formatDate(post.date)}</span>
+            </div>
+          </div>
+          <div class="post-item-actions">
+            <button class="btn btn-ghost edit-post-btn" data-post-id="${post.id}">Edit</button>
+            <button class="btn btn-danger delete-post-btn" data-post-id="${post.id}">Delete</button>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.edit-post-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const postId = btn.dataset.postId;
+          editingPost = posts.find(p => p.id === postId);
+          populateForm();
+          showView('edit');
+        });
+      });
+
+      document.querySelectorAll('.delete-post-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          deletePost(btn.dataset.postId);
+        });
+      });
+    }
+
+    function populateForm() {
+      if (!editingPost) {
+        document.getElementById('input-title').value = '';
+        document.getElementById('input-category').value = '';
+        document.getElementById('input-excerpt').value = '';
+        document.getElementById('input-content').value = '';
+        document.getElementById('input-thumbnail').value = '';
+        document.getElementById('edit-title').textContent = 'Create New Post';
+        document.getElementById('submit-text').textContent = 'Publish Post';
+      } else {
+        document.getElementById('input-title').value = editingPost.title || '';
+        document.getElementById('input-category').value = editingPost.category || '';
+        document.getElementById('input-excerpt').value = editingPost.excerpt || '';
+        document.getElementById('input-content').value = editingPost.content || '';
+        document.getElementById('input-thumbnail').value = editingPost.thumbnail || '';
+        document.getElementById('edit-title').textContent = 'Edit Post';
+        document.getElementById('submit-text').textContent = 'Update Post';
+      }
+    }
+
+    // ============================================
+    // Event listeners
+    // ============================================
+    document.getElementById('admin-btn').addEventListener('click', () => {
+      showView('admin');
+    });
+
+    document.getElementById('back-to-list').addEventListener('click', () => {
+      window.location.hash = '';
+      showView('list');
+    });
+
+    document.getElementById('back-to-admin').addEventListener('click', () => {
+      editingPost = null;
+      showView('admin');
+    });
+
+    document.getElementById('new-post-btn').addEventListener('click', () => {
+      editingPost = null;
+      populateForm();
+      showView('edit');
+    });
+
+    document.getElementById('submit-btn').addEventListener('click', async () => {
+      const post = {
+        id: editingPost?.id,
+        title: document.getElementById('input-title').value,
+        category: document.getElementById('input-category').value,
+        excerpt: document.getElementById('input-excerpt').value,
+        content: document.getElementById('input-content').value,
+        thumbnail: document.getElementById('input-thumbnail').value,
+        date: editingPost?.date
+      };
+
+      if (!post.title || !post.content) {
+        showStatus('Please fill in title and content', 'error');
+        return;
+      }
+
+      await savePost(post);
+    });
+
+    document.getElementById('save-temp-key').addEventListener('click', () => {
+      const key = document.getElementById('temp-api-key').value.trim();
+      if (!key) {
+        alert('Please enter an API key');
+        return;
+      }
+      sessionStorage.setItem('temp_api_key', key);
+      storage = new BlogStorage(key);
+      showView('list');
+      loadPosts();
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        currentPost = posts.find(p => p.id === hash);
+        if (currentPost) {
+          renderPost();
+          showView('post');
+        }
+      }
+    });
+
+    // ============================================
+    // Initialize
+    // ============================================
+    window.addEventListener('load', async () => {
+      // Check if API key is configured
+      if (API_KEY === 'YOUR_API_KEY_HERE' && !sessionStorage.getItem('temp_api_key')) {
+        showView('setup');
+        return;
+      }
+
+      storage = new BlogStorage(API_KEY);
+      await loadPosts();
+      
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        currentPost = posts.find(p => p.id === hash);
+        if (currentPost) {
+          renderPost();
+          showView('post');
+        }
+      }
+    });
+
+    // ============================================
+    // Export function for portfolio integration
+    // ============================================
+    window.getBlogPosts = async function() {
+      if (!storage) {
+        storage = new BlogStorage(API_KEY || sessionStorage.getItem('temp_api_key'));
+      }
+      const data = await storage.read();
+      return (data.posts || [])
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 6);
+    };
+  </script>
+
+</body>
+</html>
