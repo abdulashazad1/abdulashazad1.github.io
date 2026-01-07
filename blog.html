@@ -553,6 +553,11 @@
       <button id="admin-login-btn" class="btn btn-primary" style="width: 100%; justify-content: center;">
         Login
       </button>
+      
+      <p class="setup-text" style="margin-top: 16px; font-size: 12px; color: var(--muted2);">
+        Default password: <code style="background: rgba(255,255,255,.05); padding: 2px 8px; border-radius: 4px;">admin123</code>
+        <br>Change this in the HTML file by editing the ADMIN_PASSWORD constant.
+      </p>
     </div>
   </div>
 
@@ -625,8 +630,11 @@
     class BlogStorage {
       constructor(apiKey, binId = null) {
         this.apiKey = apiKey || sessionStorage.getItem('temp_api_key');
-        this.binId = binId || localStorage.getItem('blog_bin_id');
+        // Use provided binId first, then localStorage, then BIN_ID constant
+        this.binId = binId || localStorage.getItem('blog_bin_id') || (BIN_ID !== 'YOUR_BIN_ID' ? BIN_ID : null);
         this.baseUrl = 'https://api.jsonbin.io/v3';
+        
+        console.log('BlogStorage initialized with BIN_ID:', this.binId);
       }
 
       async createBin(data) {
@@ -789,14 +797,37 @@
     // ============================================
     async function loadPosts() {
       try {
+        // Make sure storage is initialized
+        if (!storage) {
+          storage = new BlogStorage(API_KEY);
+        }
+        
         const data = await storage.read();
         posts = data.posts || [];
         posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        console.log(`Loaded ${posts.length} posts`);
+        
         renderBlogList();
-        renderAdminList();
+        
+        // Only render admin list if logged in
+        if (isAdminLoggedIn) {
+          renderAdminList();
+        }
       } catch (error) {
         console.error('Error loading posts:', error);
-        showStatus('Failed to load posts: ' + error.message, 'error');
+        posts = [];
+        renderBlogList();
+        
+        // Show a more helpful error message
+        const grid = document.getElementById('blog-grid');
+        if (grid && posts.length === 0) {
+          grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+              <p>Unable to load blog posts. Please check your internet connection.</p>
+            </div>
+          `;
+        }
       }
     }
 
@@ -1080,23 +1111,39 @@
     // Initialize
     // ============================================
     window.addEventListener('load', async () => {
+      // Initialize storage first
+      storage = new BlogStorage(API_KEY, BIN_ID);
+      
       // Check if API key is configured
       if (API_KEY === 'YOUR_API_KEY_HERE' && !sessionStorage.getItem('temp_api_key')) {
-        showView('setup');
-        return;
+        // Only show setup if there's no BIN_ID either
+        if (!BIN_ID || BIN_ID === 'YOUR_BIN_ID') {
+          showView('setup');
+          return;
+        }
       }
 
-      storage = new BlogStorage(API_KEY);
-      await loadPosts();
+      // Load posts for everyone (admin or visitor)
+      try {
+        await loadPosts();
+        console.log(`Loaded ${posts.length} posts for display`);
+      } catch (error) {
+        console.error('Error loading posts:', error);
+      }
       
+      // Check for specific post in URL hash
       const hash = window.location.hash.substring(1);
-      if (hash) {
+      if (hash && posts.length > 0) {
         currentPost = posts.find(p => p.id === hash);
         if (currentPost) {
           renderPost();
           showView('post');
+          return;
         }
       }
+      
+      // Default: show blog list
+      showView('list');
     });
 
     // ============================================
