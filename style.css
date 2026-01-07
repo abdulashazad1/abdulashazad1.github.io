@@ -877,3 +877,82 @@ html{
   }
 }
 
+/* Awards marquee container */
+.awards-marquee{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  padding: 18px 0;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(10,8,18,.75)
+  );
+
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+/* Moving track */
+.awards-track{
+  display: flex;
+  gap: 28px;
+  width: max-content;
+
+  animation: awards-scroll 28s linear infinite;
+}
+
+/* Individual award tile */
+.award-tile{
+  white-space: nowrap;
+  padding: 10px 18px;
+
+  font-size: 13px;
+  letter-spacing: .4px;
+  color: #cfc7ff;
+
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(138,109,255,.25),
+      rgba(20,16,40,.9)
+    );
+
+  border: 1px solid rgba(138,109,255,.35);
+  box-shadow:
+    0 0 14px rgba(138,109,255,.25),
+    inset 0 0 10px rgba(0,0,0,.35);
+}
+
+/* Hover pause (polish) */
+.awards-marquee:hover .awards-track{
+  animation-play-state: paused;
+}
+
+/* Keyframes */
+@keyframes awards-scroll{
+  from{
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(-50%);
+  }
+}
+
+#home{
+  position: relative;
+}
+
+.awards-track{
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  margin-top: 150px;
+  animation: awards-scroll 28s linear infinite;
+
+}
+
+
