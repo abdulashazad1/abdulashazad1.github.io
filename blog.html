@@ -535,11 +535,40 @@
     <article id="post-content"></article>
   </div>
 
+  <!-- Admin Login View -->
+  <div id="admin-login-view" class="container hidden">
+    <div class="setup-panel">
+      <h2 class="setup-title">Admin Login</h2>
+      <p class="setup-text">
+        Enter the admin password to manage your blog posts.
+      </p>
+      
+      <div id="login-status-container"></div>
+      
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="admin-password-input" class="form-input" placeholder="Enter admin password">
+      </div>
+
+      <button id="admin-login-btn" class="btn btn-primary" style="width: 100%; justify-content: center;">
+        Login
+      </button>
+      
+      <p class="setup-text" style="margin-top: 16px; font-size: 12px; color: var(--muted2);">
+        Default password: <code style="background: rgba(255,255,255,.05); padding: 2px 8px; border-radius: 4px;">admin123</code>
+        <br>Change this in the HTML file by editing the ADMIN_PASSWORD constant.
+      </p>
+    </div>
+  </div>
+
   <!-- Admin View -->
   <div id="admin-view" class="container hidden">
     <div class="admin-header">
       <h2 class="admin-title">Manage Posts</h2>
-      <button id="new-post-btn" class="btn btn-primary">+ New Post</button>
+      <div style="display: flex; gap: 12px;">
+        <button id="admin-logout-btn" class="btn btn-ghost">Logout</button>
+        <button id="new-post-btn" class="btn btn-primary">+ New Post</button>
+      </div>
     </div>
     <div id="post-list" class="post-list">
       <div class="loading">Loading posts...</div>
@@ -593,6 +622,7 @@
     // ============================================
     const API_KEY = '$2a$10$DoX7ShR2LAeHPUJHppWCvO8tDzR8ehVe4US0T/DdlE1SbR9hk3pEe'; // Replace with your JSONBin.io API key
     const BIN_ID = 'YOUR_BIN_ID'; // This will be auto-created on first post
+    const ADMIN_PASSWORD = 'admin123'; // 🔒 CHANGE THIS PASSWORD!
     
     // ============================================
     // Storage API using JSONBin.io
@@ -667,6 +697,7 @@
     let currentPost = null;
     let editingPost = null;
     let storage = null;
+    let isAdminLoggedIn = false;
 
     // ============================================
     // View management
@@ -675,6 +706,7 @@
       setup: document.getElementById('setup-view'),
       list: document.getElementById('list-view'),
       post: document.getElementById('post-view'),
+      adminLogin: document.getElementById('admin-login-view'),
       admin: document.getElementById('admin-view'),
       edit: document.getElementById('edit-view')
     };
@@ -687,10 +719,47 @@
       
       const headerTitle = document.getElementById('header-title');
       if (viewName === 'list') headerTitle.textContent = 'Blog';
+      else if (viewName === 'adminLogin') headerTitle.textContent = 'Admin Login';
       else if (viewName === 'admin') headerTitle.textContent = 'Admin';
       else if (viewName === 'post') headerTitle.textContent = 'Post';
       else if (viewName === 'edit') headerTitle.textContent = editingPost?.id ? 'Edit Post' : 'New Post';
       else if (viewName === 'setup') headerTitle.textContent = 'Setup';
+    }
+
+    // ============================================
+    // Admin Authentication
+    // ============================================
+    function checkAdminAuth() {
+      const loggedIn = sessionStorage.getItem('admin_logged_in');
+      isAdminLoggedIn = loggedIn === 'true';
+      return isAdminLoggedIn;
+    }
+
+    function loginAdmin(password) {
+      if (password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('admin_logged_in', 'true');
+        isAdminLoggedIn = true;
+        return true;
+      }
+      return false;
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem('admin_logged_in');
+      isAdminLoggedIn = false;
+      showView('list');
+    }
+
+    function showLoginStatus(message, type = 'success') {
+      const container = document.getElementById('login-status-container');
+      container.innerHTML = `
+        <div class="status-message status-${type}">
+          ${type === 'success' ? '✓' : '✕'} ${message}
+        </div>
+      `;
+      setTimeout(() => {
+        container.innerHTML = '';
+      }, 3000);
     }
 
     function showStatus(message, type = 'success') {
@@ -921,7 +990,37 @@
     // Event listeners
     // ============================================
     document.getElementById('admin-btn').addEventListener('click', () => {
-      showView('admin');
+      if (checkAdminAuth()) {
+        showView('admin');
+      } else {
+        showView('adminLogin');
+      }
+    });
+
+    document.getElementById('admin-login-btn').addEventListener('click', () => {
+      const password = document.getElementById('admin-password-input').value;
+      if (loginAdmin(password)) {
+        showLoginStatus('Login successful!', 'success');
+        setTimeout(() => {
+          showView('admin');
+        }, 500);
+      } else {
+        showLoginStatus('Incorrect password. Please try again.', 'error');
+        document.getElementById('admin-password-input').value = '';
+      }
+    });
+
+    // Allow Enter key to submit password
+    document.getElementById('admin-password-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('admin-login-btn').click();
+      }
+    });
+
+    document.getElementById('admin-logout-btn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to logout?')) {
+        logoutAdmin();
+      }
     });
 
     document.getElementById('back-to-list').addEventListener('click', () => {
@@ -987,7 +1086,7 @@
     // ============================================
     window.addEventListener('load', async () => {
       // Check if API key is configured
-      if (API_KEY === '$2a$10$DoX7ShR2LAeHPUJHppWCvO8tDzR8ehVe4US0T/DdlE1SbR9hk3pEe' && !sessionStorage.getItem('temp_api_key')) {
+      if (API_KEY === 'YOUR_API_KEY_HERE' && !sessionStorage.getItem('temp_api_key')) {
         showView('setup');
         return;
       }
