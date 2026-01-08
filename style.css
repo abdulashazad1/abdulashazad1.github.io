@@ -265,19 +265,58 @@ a{
 }
 
 /* Portrait + stats */
+.portrait__frame{
+  width: min(280px, 100%);
+  aspect-ratio: 4/5;
+  border-radius: 26px;
+  padding: 8px;
+  background: linear-gradient(135deg, rgba(168,139,255,.25), rgba(181,155,255,.18));
+  border: 1px solid rgba(195, 83, 235, 0.15);
+  box-shadow: var(--shadow);
+}
 .portrait{
   display:grid;
   gap: 16px;
   justify-items: end;
 }
-.portrait__frame{
-  width: min(360px, 100%);
-  aspect-ratio: 4/5;
-  border-radius: 26px;
-  padding: 10px;
-  background: linear-gradient(135deg, rgba(255, 76, 225, 0.22), rgba(183, 52, 244, 0.16));
-  border: 1px solid rgba(195, 83, 235, 0.06);
-  box-shadow: var(--shadow);
+.scroll-cta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  cursor: pointer;
+}
+
+.scroll-cta__text{
+  font-size: 12px;
+  color: var(--muted2);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.scroll-cta:hover .scroll-cta__text{
+  color: var(--text);
+}
+
+.scroll-cta__arrow{
+  color: var(--muted2);
+  transition: color 0.3s ease;
+  animation: bounce 2s infinite;
+}
+
+.scroll-cta:hover .scroll-cta__arrow{
+  color: var(--blue);
+}
+
+@keyframes bounce{
+  0%, 100%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(8px);
+  }
 }
 .portrait__frame img{
   width:100%;
