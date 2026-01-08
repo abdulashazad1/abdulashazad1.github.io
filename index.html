@@ -996,8 +996,11 @@ async function loadBlogPosts() {
         const thumb = card.querySelector('.blog-card__thumb');
         if (post.thumbnail && thumb) {
           thumb.style.backgroundImage = `url('${post.thumbnail}')`;
+          thumb.style.backgroundSize = 'cover'; /* Changed to cover for zoom effect */
+          thumb.style.backgroundPosition = 'center';
+          thumb.style.backgroundRepeat = 'no-repeat';
         }
-        
+      
         // Update meta info
         const meta = card.querySelector('.blog-card__meta');
         if (meta) {
