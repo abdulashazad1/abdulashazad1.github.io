@@ -1,38 +1,41 @@
 :root{
   /* Core */
-  --bg: #07060a;                 /* deep black */
-  --panel: rgba(255,255,255,.035);
-  --panel2: rgba(255,255,255,.02);
-  --stroke: rgba(155,120,255,.18);
-  --blue: rgb(173, 131, 236);
-  --blueGlow: rgba(135, 31, 254, 0.45);
+  --bg: #ffffff;
+  --panel: rgba(120, 90, 255, 0.488);
+  --panel2: rgba(120, 90, 255, 0.556);
+  --stroke: rgba(120, 90, 255, 0.583);
+
+  --stroke: rgba(0, 0, 0, 0.18);
+  --stroke-soft: rgba(0, 0, 0, 0.12);
+  --stroke-strong: rgba(0, 0, 0, 0.28);
 
   /* Text */
-  --text: rgba(245,240,255,.95);
-  --muted: rgba(215,200,255,.65);
-  --muted2: rgba(190,170,240,.45);
+  --text: #0b0b0f;
+  --muted: #3a3a45;
+  --muted2: #6a6a75;
 
-  /* Purple system */
-  --purple:  #ded9ff;             /* main accent */
-  --purpleSoft: rgba(168,139,255,.18);
-  --purpleGlow: rgba(168,139,255,.45);
+  /* Purple system (UNCHANGED STRUCTURE) */
+  --purple: #6b5cff;
+  --purpleSoft: rgba(108, 92, 255, 0.825);
+  --purpleGlow: rgba(94, 86, 167, 0.91);
 
-  /* Gradients */
-  --mix: linear-gradient(90deg, #b59bff, #8f7bff);
+  /* Gradients (same intent, lighter) */
+  --mix: linear-gradient(90deg, #7b6cff, #9a8cff);
   --mixSoft: linear-gradient(
     90deg,
-    rgba(181,155,255,.25),
-    rgba(143,123,255,.15)
+    rgba(123, 108, 255, 0.725),
+    rgba(153, 140, 255, 0.69)
   );
 
-  /* Shadows */
+  /* Shadows (lighter, same shape) */
   --shadow:
-    0 18px 55px rgba(168,139,255,.22),
-    0 0 30px rgba(168,139,255,.12);
+  0 10px 30px rgba(0, 0, 0, 0.12);
+
 
   --radius: 16px;
   --container: 1120px;
 }
+
 
 
 html, body {
@@ -54,6 +57,14 @@ body{
   color: var(--text);
   overflow-x:hidden;
 }
+
+body{
+  background:
+    radial-gradient(circle at 20% 20%, rgba(107,92,255,.06), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(154,140,255,.05), transparent 40%),
+    #ffffff;
+}
+
 
 
 
@@ -762,7 +773,7 @@ a{
 .stat__num{
   font-size: 28px;
   font-weight: 900;
-  color: var(--green);
+  color: var(--purple);
   text-shadow:
     0 0 12px rgba(0,255,156,.35),
     0 0 30px rgba(0,255,156,.15);
@@ -970,6 +981,19 @@ html{
     inset 0 0 10px rgba(0,0,0,.35);
 }
 
+/* Award pills — light purple, readable */
+.award-tile{
+  color: #2b255a;
+  background: linear-gradient(
+    135deg,
+    rgba(210, 200, 255, 0.55),
+    rgba(235, 230, 255, 0.85)
+  );
+  border: 1px solid rgba(140,120,255,0.35);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+
 /* Hover pause (polish) */
 .awards-marquee:hover .awards-track{
   animation-play-state: paused;
@@ -1077,3 +1101,191 @@ svg {
   p  { font-size: 0.95rem; }
 
 }
+
+.header{
+  background: rgba(255,255,255,.82);
+  border-bottom: 1px solid rgba(120,90,255,.15);
+}
+
+body,
+p,
+span,
+li,
+label,
+input,
+textarea,
+button {
+  color: var(--text);
+}
+
+/* Navigation */
+.nav__link,
+.nav a {
+  color: var(--text);
+}
+
+/* Hero subtext, kickers, labels */
+.kicker,
+.hero__sub,
+.section__sub,
+.stat__label,
+.work-card__desc,
+.test__role,
+.blog-card__meta,
+.blog-card__text,
+.form__hint,
+.info__label {
+  color: var(--muted);
+}
+
+.pill,
+.badge,
+.chip,
+.info,
+.input,
+.textarea {
+  color: var(--text);
+}
+
+.panel,
+.panel2,
+.card,
+.glass,
+.stat,
+.skill,
+.test,
+.blog-card,
+.work-card,
+.tcard,
+.info,
+.mini-card,
+.accordion,
+.acc,
+.contact-card {
+  border: 1px solid var(--stroke);
+}
+
+.panel {
+  border-color: var(--stroke-strong);
+}
+
+.tcard {
+  border-color: var(--stroke);
+}
+
+.tcard:hover {
+  border-color: var(--purple);
+}
+
+/* Contact form inputs */
+.input,
+.textarea {
+  border: 1.5px solid var(--stroke-strong);
+  background: #ffffff;
+}
+
+/* Focus state (important) */
+.input:focus,
+.textarea:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+/* Header / ghost buttons — force readable text */
+.btn--ghost,
+.header .btn--ghost {
+  color: var(--text);
+}
+
+.btn--ghost:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+/* Awards marquee text — readable on white */
+.award-tile {
+  color: var(--text);
+}
+
+.pill,
+.badge,
+.chip {
+  color: var(--text);
+}
+
+.blog-card__link,
+.hero .btn {
+  background: none;
+  color: var(--text);
+}
+
+.brand__name {
+  color: var(--muted);
+}
+
+/* Disable ambient glow blobs */
+.glow,
+
+.glow--one,
+.glow--two,
+.glow--three {
+  display: none;
+}
+
+/* Replace glow shadows with soft depth */
+.panel,
+.card,
+.stat,
+.skill,
+.test,
+.blog-card,
+.work-card,
+.contact-card,
+.mini-card {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* Remove text glow */
+.stat__num,
+.nav a.is-active,
+.award-tile {
+  text-shadow: none;
+}
+
+/* Contact form placeholders */
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+/* Portrait — remove glow background */
+.portrait__frame {
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* SERVICES — remove all glow */
+#services .panel,
+#services .acc,
+#services .card,
+#services .accordion {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  background: #ffffff;
+}
+
+#services * {
+  text-shadow: none !important;
+}
+
+/* Awards marquee — light purple fade */
+.awards-marquee{
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(170, 150, 255, 0.25)
+  );
+  border-top: 1px solid rgba(120,90,255,0.2);
+}
+
+
+
+
