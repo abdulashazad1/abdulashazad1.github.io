@@ -721,6 +721,46 @@
 
 <script>
   gsap.registerPlugin(ScrollTrigger);
+  // Fix for GSAP ScrollTrigger not firing on anchor link clicks
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all anchor links
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      
+      // Skip empty or just # anchors
+      if (!targetId || targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        e.preventDefault();
+        
+        // Smooth scroll to target
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // Refresh ScrollTrigger immediately and after scroll completes
+        // This ensures all animations trigger properly
+        if (window.ScrollTrigger) {
+          setTimeout(() => ScrollTrigger.refresh(), 100);
+          setTimeout(() => ScrollTrigger.refresh(), 800);
+        }
+      }
+    });
+  });
+  
+  // Also refresh on hash change (back/forward browser navigation)
+  window.addEventListener('hashchange', function() {
+    if (window.ScrollTrigger) {
+      setTimeout(() => ScrollTrigger.refresh(), 100);
+    }
+  });
+});
 </script>
 
   <script>
