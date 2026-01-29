@@ -928,13 +928,21 @@
 <!-- Add this script section right before the closing </body> tag in your portfolio index.html -->
 <!-- Replace ALL existing blog loading scripts with this SINGLE script -->
 
+
+
+// Load blog posts when page loads
+window.addEventListener('load', loadBlogPosts);
+
+// Optional: Auto-refresh every 5 minutes
+// setInterval(loadBlogPosts, 5 * 60 * 1000);
+</script>
+
 <script>
 // ============================================
 // BLOG INTEGRATION CONFIG
 // ============================================
-// Replace with your actual JSONBin.io Master Key from blog.html
 const BLOG_API_KEY = '$2a$10$DoX7ShR2LAeHPUJHppWCvO8tDzR8ehVe4US0T/DdlE1SbR9hk3pEe';
-const BLOG_BIN_ID = '695e953743b1c97be91ff23d'; // This will be auto-detected
+const BLOG_BIN_ID = '695e953743b1c97be91ff23d';
 
 // ============================================
 // LOAD BLOG POSTS FROM CLOUD STORAGE
@@ -981,8 +989,16 @@ async function loadBlogPosts() {
 
     console.log(`Found ${posts.length} blog posts`);
 
+    // Wait a bit to ensure DOM is fully ready
+    await new Promise(resolve => setTimeout(resolve, 100));
+
     // Update blog cards with real data
     const blogCards = document.querySelectorAll('.blog-card');
+    
+    if (blogCards.length === 0) {
+      console.warn('No blog cards found in DOM');
+      return;
+    }
     
     posts.forEach((post, index) => {
       if (blogCards[index]) {
@@ -996,7 +1012,7 @@ async function loadBlogPosts() {
         const thumb = card.querySelector('.blog-card__thumb');
         if (post.thumbnail && thumb) {
           thumb.style.backgroundImage = `url('${post.thumbnail}')`;
-          thumb.style.backgroundSize = 'cover'; /* Changed to cover for zoom effect */
+          thumb.style.backgroundSize = 'cover';
           thumb.style.backgroundPosition = 'center';
           thumb.style.backgroundRepeat = 'no-repeat';
         }
@@ -1034,11 +1050,25 @@ async function loadBlogPosts() {
   }
 }
 
-// Load blog posts when page loads
-window.addEventListener('load', loadBlogPosts);
+// Use multiple methods to ensure loading
+function initBlogLoading() {
+  // Method 1: DOMContentLoaded (fires before images/styles)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadBlogPosts);
+  } else {
+    // Method 2: If already loaded, run immediately
+    loadBlogPosts();
+  }
+}
 
-// Optional: Auto-refresh every 5 minutes
-// setInterval(loadBlogPosts, 5 * 60 * 1000);
+// Method 3: Also on full window load as backup
+window.addEventListener('load', () => {
+  // Small delay to ensure all GSAP animations are registered
+  setTimeout(loadBlogPosts, 200);
+});
+
+// Start initialization
+initBlogLoading();
 </script>
 
 </body>
